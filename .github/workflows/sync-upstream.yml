@@ -1,0 +1,32 @@
+name: Sync Upstream
+
+on:
+  schedule:
+    - cron: "0 16 * * *" # Run daily at 2 AM AEST (4 PM UTC previous day)
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  sync_upstream:
+    runs-on: ubuntu-latest
+    name: Sync upstream changes
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0 # Fetch full history
+
+      - name: Sync upstream
+        id: sync
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        with:
+          upstream_sync_repo: sirmalloc/ccstatusline
+          upstream_sync_branch: main
+          target_sync_branch: main
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+          test_mode: false
+
+      - name: Check for new commits
+        if: steps.sync.outputs.has_new_commits == 'true'
+        run: echo "New commits were found and synced."

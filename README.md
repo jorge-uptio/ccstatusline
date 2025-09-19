@@ -46,6 +46,12 @@
 
 ## 🆕 Recent Updates
 
+### v2.0.16 - Add fish style path abbreviation toggle to Current Working Directory widget
+
+### v2.0.15 - Block Timer calculation fixes
+
+- Fix miscalculation in the block timer
+
 ### v2.0.14 - Add remaining mode toggle to Context Percentage widgets
 
 - **Remaining Mode** - You can now toggle the Context Percentage widgets between usage percentage and remaining percentage when configuring them in the TUI by pressing the 'l' key.
